@@ -10,8 +10,13 @@
 
 <?php include('connect.php')  ?>
 <?php include('header.php')  ?>
-
+<h1>Đây là Phát</h1>
 <h1>Đây là Hùng</h1>
+<<<<<<< HEAD
+
+=======
+
+>>>>>>> 012c68a92af917fc7cdf6308844a0fc864366988
 
 
 
