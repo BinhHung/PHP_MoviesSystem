@@ -25,6 +25,72 @@
 
 </head>
 <body>
+<?php
+require_once 'vendor/autoload.php';
+
+// init configuration
+$clientID = '273883071727-dv01iu88mjkkhmuaicv2t45ptpmcgjva.apps.googleusercontent.com';
+$clientSecret = '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';
+$redirectUri = 'http://localhost:8080/moviessystem/login.php';
+
+// create Client Request to access Google API
+$client = new Google\Client();
+$client->setClientId($clientID);
+$client->setClientSecret($clientSecret);
+$client->setRedirectUri($redirectUri);
+$client->addScope("email");
+$client->addScope("profile");
+
+// authenticate code from Google OAuth Flow
+if (isset($_GET['code'])) {
+  $token = $client->fetchAccessTokenWithAuthCode($_GET['code']);
+  $client->setAccessToken($token['access_token']);
+
+  $google_oauth = new Google\Service\Oauth2($client);
+  $google_account_info = $google_oauth->userinfo->get();
+  $email =  $google_account_info->email;
+  $name =  $google_account_info->name;
+  $id = $google_account_info->id;
+
+  $user_id_suffix = substr($id, -4);
+
+  $check_query = "SELECT * FROM users WHERE userid = '$user_id_suffix'";
+  $check_result = mysqli_query($con, $check_query);
+  
+  if (mysqli_num_rows($check_result) == 0) {
+    $sql = "INSERT INTO `users`(`email`, `name`, `userid`, `roteype`) VALUES ('$email','$name','$user_id_suffix','2')";
+    $result = mysqli_query($con, $sql);
+  
+    if ($result) {
+        $_SESSION['uid'] = $user_id_suffix;
+        $_SESSION['type'] = 2; 
+      
+        echo "<script> alert('User information saved successfully!') </script>";
+        echo "<script>window.location.href='index.php';</script>";
+    } else {
+        echo "<script> alert('Failed to save user information!') </script>";
+    }
+} else {
+    $user_data = mysqli_fetch_assoc($check_result);
+    $_SESSION['uid'] = $user_data['userid'];
+    $_SESSION['type'] = $user_data['roteype'];
+  
+    if($user_data['roteype'] == 1){
+      echo "<script> alert('admin login successfully!!') </script>";
+      echo "<script> window.location.href='admin/dashboard.php'; </script>";
+    }
+    if($user_data['roteype'] == 2){
+      echo "<script> alert('user login successfully!!') </script>";
+      echo "<script> window.location.href='index.php'; </script>";
+    }
+}
+  
+
+  
+  
+} else {
+  
+?>
 <section id="team" class="team section-bg">
       <div class="container aos-init aos-animate" data-aos="fade-up">
 
@@ -49,6 +115,10 @@
 
 
               <div class="text-center"><button type="submit" name="login" class="btn btn-primary">Login</button></div>
+              <a href="<?php echo $client->createAuthUrl() ?>">
+                <img src="https://developers.google.com/identity/images/btn_google_signin_light_normal_web.png" alt="Login with Google">
+              </a>
+
             </form>
           </div>
 
@@ -57,6 +127,7 @@
 
       </div>
     </section>
+    <?php } ?>
 </body>
 </html>
 <?php
@@ -88,8 +159,7 @@
       }else{
         echo "<script> alert('Invalid Email & Password!!') </script>";
       }
-      
-
     }
-
 ?>
+
+

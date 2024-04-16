@@ -66,7 +66,7 @@ if(!isset($_SESSION['uid'])){
            
             <td>
               <a href="viewallusers.php?editid=<?= $data['userid'] ?>" class="btn btn-primary"> Update </a>
-              <a href="viewallusers.php?userid=<?= $data['userid'] ?>" class="btn btn-danger"> Delete </a>
+              <a href="viewallusers.php?deleteid=<?= $data['userid'] ?>" class="btn btn-danger"> Delete </a>
             
           </td>
           </tr>
@@ -111,7 +111,7 @@ if(isset($_GET['editid'])){
     <?php
 
 }
-  
+
 ?>
   
 
@@ -125,19 +125,18 @@ if(isset($_GET['editid'])){
 
 <?php
 
-if(isset($_GET['userid'])){
+if(isset($_GET['deleteid'])){
 
-  $userid = $_GET['userid'];
-
-  $sql = "delete from users WHERE userid ='$bookingid'";
-
+  $deleteid = $_GET['deleteid'];
+  $sql = "DELETE FROM `users` WHERE userid  = '$deleteid'";
+ 
   if(mysqli_query($con, $sql)){
-    echo "<script> alert('user deleted successfully')</script>";
-    echo "<script> window.location.href='viewallusers.php' </script>";
+    echo "<script> alert('Delete successfully')</script>";
+      echo "<script> window.location.href='viewallusers.php' </script>";
   }else{
-    echo "<script> alert('user not deleted')</script>";
+    echo "<script> alert('cateogry not deleted')</script>";
   }
-
+ 
 }
 
 
