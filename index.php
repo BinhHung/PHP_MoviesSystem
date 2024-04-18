@@ -1,3 +1,5 @@
+<?php include('connect.php')  ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,7 +10,6 @@
 </head>
 <body>
 
-<?php include('connect.php')  ?>
 <?php include('header.php')  ?>
 
 

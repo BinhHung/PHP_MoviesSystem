@@ -77,7 +77,7 @@ if(!isset($_SESSION['uid'])){
                         <h6>Giá Vé: <?= $data['price'] ?>.000đ</h6>
                       </div>
                       <div class="col form-group mb-3">
-                            <input type="text" class="form-control" name="person" id="person" placeholder="Enter no of People" required="">
+                            <input type="number" class="form-control" name="person" id="person" placeholder="Enter no of People" required="">
                         </div>
                         <div class="col form-group mb-3">
                             <input type="text" class="form-control" name="totalPrice" id="totalPrice" readonly>
@@ -98,7 +98,7 @@ if(!isset($_SESSION['uid'])){
                         </script>
                     </div>
                   
-                    <div class="text-center"><button type="submit" class="btn btn-primary" name="ticketbook">Ticket Book</button></div>
+                    <div class="text-center"><button type="submit" class="btn btn-primary" name="ticketbook">Đặt Ngay</button></div>
                   </form>
                 </div>
 

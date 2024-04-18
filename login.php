@@ -29,9 +29,9 @@
 require_once 'vendor/autoload.php';
 
 // init configuration
-$clientID = '';
-$clientSecret = '';
-$redirectUri = '';
+$clientID = '273883071727-dv01iu88mjkkhmuaicv2t45ptpmcgjva.apps.googleusercontent.com';
+$clientSecret = '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';
+$redirectUri = 'http://localhost:8080/moviessystem/login.php';
 
 // create Client Request to access Google API
 $client = new Google\Client();
