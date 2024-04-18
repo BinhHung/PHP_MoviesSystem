@@ -36,6 +36,11 @@ if(mysqli_num_rows($result) > 0){
 <?php include('header.php')  ?>
 
 <div class="container" style="margin-top:100px!important;">
+  <div class="col-md-12 head">
+    <div class="float-end">
+      <a href="export.php" class="btn btn-success"> <i class="dwn"></i>Export</a>
+    </div>
+  </div>
   <form action="viewallbooking.php" method="post">
     <div class="row">
       <div class="col-lg-3">
